@@ -18,7 +18,7 @@ jobs:
           python-version: '3.9'
 
       - name: Instalar bibliotecas
-        run: pip install pandas requests
+        run: pip install pandas requests pytz
 
       - name: Executar Bot
         env:
