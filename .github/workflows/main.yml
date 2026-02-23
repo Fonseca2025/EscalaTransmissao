@@ -1,0 +1,27 @@
+name: Enviar Escala Diaria
+
+on:
+  schedule:
+    - cron: '0 15 * * *'  # 15:00 UTC = 12:00 Horário de Brasília
+  workflow_dispatch:      # Permite rodar manualmente para testar
+
+jobs:
+  run_bot:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout código
+        uses: actions/checkout@v2
+
+      - name: Configurar Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.9'
+
+      - name: Instalar bibliotecas
+        run: pip install pandas requests
+
+      - name: Executar Bot
+        env:
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python bot_pascom.py
